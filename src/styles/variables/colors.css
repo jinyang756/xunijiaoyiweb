@@ -1,0 +1,39 @@
+:root {
+  /* 品牌主色 */
+  --primary-color: #165DFF;
+  --primary-light: #4080FF;
+  --primary-dark: #0E42D2;
+  --primary-hover: #0A36B7;
+
+  /* 功能色 */
+  --success-color: #00B42A;
+  --warning-color: #FF7D00;
+  --danger-color: #F53F3F;
+  --info-color: #86909C;
+
+  /* 背景色 */
+  --bg-primary: #F7F8FA;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F2F3F5;
+  --bg-dark: #1D2129;
+
+  /* 文本色 */
+  --text-primary: #1D2129;
+  --text-secondary: #4E5969;
+  --text-tertiary: #86909C;
+  --text-light: #C9CDD4;
+
+  /* 货币色 */
+  --cny-color: #D4AF37;
+  --hkd-color: #FF6B35;
+}
+
+/* 暗色主题变量 */
+.dark {
+  --bg-primary: #1D2129;
+  --bg-secondary: #2B2F36;
+  --bg-tertiary: #3E4451;
+  --text-primary: #F2F3F5;
+  --text-secondary: #C9CDD4;
+  --text-tertiary: #86909C;
+}

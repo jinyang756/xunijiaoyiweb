@@ -1,0 +1,69 @@
+/* src/styles/layouts/navbar.css */
+.jt-navbar {
+  background: var(--bg-secondary);
+  box-shadow: var(--shadow-md);
+  padding: 0 var(--spacing-xl);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.jt-navbar-brand {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.jt-navbar-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+.jt-navbar-item {
+  margin: 0 var(--spacing-md);
+}
+
+.jt-navbar-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.jt-navbar-link:hover {
+  color: var(--primary-color);
+  background-color: rgba(22, 93, 255, 0.1);
+}
+
+.jt-navbar-link.active {
+  color: var(--primary-color);
+  background-color: rgba(22, 93, 255, 0.1);
+}
+
+.jt-navbar-actions {
+  display: flex;
+  align-items: center;
+}
+
+.jt-navbar-user {
+  display: flex;
+  align-items: center;
+  margin-left: var(--spacing-xl);
+}
+
+.jt-navbar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  margin-right: var(--spacing-sm);
+}

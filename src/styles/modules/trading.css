@@ -1,0 +1,89 @@
+/* src/styles/modules/trading.css */
+.jt-trading-container {
+  padding: var(--spacing-xl);
+}
+
+.jt-trading-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.jt-trading-title {
+  font-size: var(--font-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.jt-trading-subtitle {
+  font-size: var(--font-base);
+  color: var(--text-secondary);
+}
+
+.jt-trading-card {
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-trading-form {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+}
+
+.jt-trading-chart {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  height: 400px;
+}
+
+.jt-trading-actions {
+  display: flex;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
+}
+
+.jt-trading-buy {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.jt-trading-sell {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.jt-price-up {
+  color: var(--success-color);
+}
+
+.jt-price-down {
+  color: var(--danger-color);
+}
+
+.jt-market-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-market-item {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.jt-market-label {
+  font-size: var(--font-sm);
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.jt-market-value {
+  font-size: var(--font-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}

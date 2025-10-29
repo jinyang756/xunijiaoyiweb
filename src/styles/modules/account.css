@@ -1,0 +1,126 @@
+/* src/styles/modules/account.css */
+.jt-account-container {
+  padding: var(--spacing-xl);
+}
+
+.jt-account-header {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.jt-account-title {
+  font-size: var(--font-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-md);
+}
+
+.jt-account-profile {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  margin-right: var(--spacing-xl);
+}
+
+.jt-profile-info h3 {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.jt-profile-info p {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.jt-profile-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.jt-profile-item {
+  margin-bottom: var(--spacing-lg);
+}
+
+.jt-profile-label {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.jt-profile-value {
+  font-size: var(--font-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+}
+
+.jt-account-assets {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-assets-header {
+  margin-bottom: var(--spacing-xl);
+}
+
+.jt-assets-title {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.jt-assets-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.jt-asset-card {
+  background: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+}
+
+.jt-asset-name {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.jt-asset-value {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-primary);
+}
+
+.jt-asset-change {
+  font-size: var(--font-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.jt-asset-change.positive {
+  color: var(--success-color);
+}
+
+.jt-asset-change.negative {
+  color: var(--danger-color);
+}

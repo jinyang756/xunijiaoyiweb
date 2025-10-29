@@ -1,0 +1,54 @@
+/* src/styles/components/table.css */
+.jt-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.jt-table th {
+  background-color: var(--bg-tertiary);
+  padding: var(--spacing-lg);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  font-size: var(--font-sm);
+}
+
+.jt-table td {
+  padding: var(--spacing-lg);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  color: var(--text-secondary);
+}
+
+.jt-table tr:last-child td {
+  border-bottom: none;
+}
+
+.jt-table tr:hover {
+  background-color: rgba(22, 93, 255, 0.05);
+}
+
+.jt-table-striped tr:nth-child(even) {
+  background-color: var(--bg-primary);
+}
+
+.jt-table-striped tr:nth-child(even):hover {
+  background-color: rgba(22, 93, 255, 0.05);
+}
+
+.jt-table-bordered {
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.jt-table-bordered th,
+.jt-table-bordered td {
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.jt-table-bordered th:last-child,
+.jt-table-bordered td:last-child {
+  border-right: none;
+}

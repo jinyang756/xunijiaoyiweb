@@ -1,0 +1,36 @@
+/* src/styles/conflict-resolution.css */
+
+/* CSS 优先级控制 */
+/* 使用更具体的选择器 */
+/* .jt-component .jt-specific-element {
+  高优先级样式示例:
+  color: var(--text-primary);
+  font-weight: var(--font-weight-bold);
+} */
+
+/* 使用 !important 作为最后的手段 */
+.jt-critical-style {
+  color: var(--primary-color) !important;
+}
+
+/* Tailwind 与 Ant Design 冲突解决 */
+/* 在全局样式中重置Ant Design样式 */
+.ant-btn {
+  @apply jt-btn;
+}
+
+.ant-btn-primary {
+  @apply jt-btn-primary;
+}
+
+.ant-card {
+  @apply jt-card;
+}
+
+/* 或者使用CSS变量覆盖 */
+:root {
+  --ant-primary-color: var(--primary-color);
+  --ant-success-color: var(--success-color);
+  --ant-warning-color: var(--warning-color);
+  --ant-error-color: var(--danger-color);
+}

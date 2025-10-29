@@ -1,0 +1,23 @@
+/* src/styles/variables/responsive.css */
+:root {
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* 移动端优先的响应式类 */
+@media (min-width: 640px) {
+  .sm\:jt-col-6 { width: 50%; }
+  .sm\:jt-text-lg { font-size: var(--font-lg); }
+}
+
+@media (min-width: 768px) {
+  .md\:jt-col-4 { width: 33.333%; }
+  .md\:jt-text-xl { font-size: var(--font-xl); }
+}
+
+@media (min-width: 1024px) {
+  .lg\:jt-col-3 { width: 25%; }
+  .lg\:jt-text-2xl { font-size: var(--font-2xl); }
+}

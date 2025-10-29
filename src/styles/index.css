@@ -1,0 +1,41 @@
+/* 1. External dependencies */
+@import 'antd/dist/reset.css';
+
+/* 2. CSS variables */
+@import './variables/colors.css';
+@import './variables/typography.css';
+@import './variables/spacing.css';
+@import './variables/animations.css';
+@import './variables/responsive.css';
+
+/* 3. Global styles */
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: var(--line-height-normal);
+}
+
+/* 4. Component styles */
+@import './components/button.css';
+@import './components/card.css';
+@import './components/form.css';
+@import './components/table.css';
+
+/* 5. Layout styles */
+@import './layouts/navbar.css';
+@import './layouts/sidebar.css';
+@import './layouts/grid.css';
+
+/* 6. Module styles */
+@import './modules/trading.css';
+@import './modules/fund.css';
+@import './modules/account.css';
+@import './modules/login.css';
+
+/* 7. Theme styles */
+@import './themes/light.css';
+@import './themes/dark.css';
+
+/* 8. Conflict resolution */
+@import './conflict-resolution.css';

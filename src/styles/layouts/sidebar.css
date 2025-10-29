@@ -1,0 +1,82 @@
+/* src/styles/layouts/sidebar.css */
+.jt-sidebar {
+  width: 240px;
+  background: var(--bg-secondary);
+  height: calc(100vh - 64px);
+  position: fixed;
+  top: 64px;
+  left: 0;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+  z-index: 90;
+  transition: all var(--transition-normal);
+}
+
+.jt-sidebar.collapsed {
+  width: 64px;
+}
+
+.jt-sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.jt-sidebar-item {
+  margin: 0;
+}
+
+.jt-sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.jt-sidebar-link:hover {
+  background-color: rgba(22, 93, 255, 0.1);
+  color: var(--primary-color);
+}
+
+.jt-sidebar-link.active {
+  background-color: rgba(22, 93, 255, 0.1);
+  color: var(--primary-color);
+  border-left: 3px solid var(--primary-color);
+}
+
+.jt-sidebar-icon {
+  margin-right: var(--spacing-lg);
+  width: 20px;
+  text-align: center;
+}
+
+.jt-sidebar-text {
+  flex: 1;
+}
+
+.jt-sidebar.collapsed .jt-sidebar-text {
+  display: none;
+}
+
+.jt-sidebar.collapsed .jt-sidebar-icon {
+  margin-right: 0;
+  text-align: center;
+}
+
+.jt-sidebar-toggle {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: calc(var(--spacing-lg) * -1);
+  width: 24px;
+  height: 24px;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}

@@ -1,0 +1,8 @@
+/* Minimal styles for HomePage */
+.home-hero {
+  padding: 48px 24px;
+}
+.home-fund-card {
+  margin-bottom: 16px;
+}
+/* 保持工程样式可用，后续可按需扩展 */

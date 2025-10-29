@@ -1,0 +1,40 @@
+/* src/styles/components/card.css */
+.jt-card {
+  background: var(--bg-secondary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transition: all var(--transition-normal);
+}
+
+.jt-card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+.jt-card-header {
+  padding: var(--spacing-xl);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.jt-card-body {
+  padding: var(--spacing-xl);
+}
+
+.jt-card-footer {
+  padding: var(--spacing-xl);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.jt-card-title {
+  font-size: var(--font-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.jt-card-subtitle {
+  font-size: var(--font-sm);
+  color: var(--text-secondary);
+  margin-top: var(--spacing-xs);
+}

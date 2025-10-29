@@ -1,0 +1,49 @@
+/* src/styles/components/form.css */
+.jt-form {
+  width: 100%;
+}
+
+.jt-form-group {
+  margin-bottom: var(--spacing-lg);
+}
+
+.jt-form-label {
+  display: block;
+  font-size: var(--font-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.jt-form-input {
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  font-size: var(--font-base);
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.jt-form-input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(22, 93, 255, 0.1);
+}
+
+.jt-form-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.jt-form-error {
+  color: var(--danger-color);
+  font-size: var(--font-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.jt-form-help {
+  color: var(--text-tertiary);
+  font-size: var(--font-sm);
+  margin-top: var(--spacing-xs);
+}
