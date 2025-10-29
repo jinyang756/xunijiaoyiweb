@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { 
   Table, 
   Button, 
-  Modal, 
   Form, 
   Input, 
   Select, 
@@ -22,11 +21,40 @@ const { Title } = Typography;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
+// 定义交易数据接口
+interface TradeData {
+  id: string;
+  userId: string;
+  asset: string;
+  type: string;
+  quantity: number;
+  price: number;
+  status: string;
+  timestamp: string;
+}
+
+// 定义分页数据接口
+interface PaginationData {
+  current: number;
+  pageSize: number;
+  total: number;
+}
+
+// 定义API返回数据接口
+interface TradesResponse {
+  trades: TradeData[];
+  pagination?: {
+    total: number;
+    page: number;
+    limit: number;
+  };
+}
+
 const TradeManagement: React.FC = () => {
-  const [trades, setTrades] = useState<any[]>([]);
+  const [trades, setTrades] = useState<TradeData[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchForm] = Form.useForm();
-  const [pagination, setPagination] = useState({
+  const [pagination, setPagination] = useState<PaginationData>({
     current: 1,
     pageSize: 10,
     total: 0
@@ -44,11 +72,23 @@ const TradeManagement: React.FC = () => {
         limit: pagination.pageSize
       });
       
-      setTrades(res.data.trades || []);
-      setPagination({
-        ...pagination,
-        total: res.data.pagination?.total || 0
-      });
+      // 处理返回的数据
+      if (Array.isArray(res.data)) {
+        setTrades(res.data);
+      } else {
+        // 假设返回的是包含 trades 和 pagination 的对象
+        const tradesData = res.data as TradesResponse;
+        if (tradesData.trades) {
+          setTrades(tradesData.trades);
+          // 更新分页信息
+          if (tradesData.pagination) {
+            setPagination({
+              ...pagination,
+              total: tradesData.pagination.total || 0
+            });
+          }
+        }
+      }
     } catch (error) {
       message.error('获取交易列表失败');
       console.error('获取交易列表失败:', error);
@@ -67,12 +107,24 @@ const TradeManagement: React.FC = () => {
         ...values
       });
       
-      setTrades(res.data.trades || []);
-      setPagination({
-        ...pagination,
-        current: 1,
-        total: res.data.pagination?.total || 0
-      });
+      // 处理返回的数据
+      if (Array.isArray(res.data)) {
+        setTrades(res.data);
+      } else {
+        // 假设返回的是包含 trades 和 pagination 的对象
+        const tradesData = res.data as TradesResponse;
+        if (tradesData.trades) {
+          setTrades(tradesData.trades);
+          // 更新分页信息
+          if (tradesData.pagination) {
+            setPagination({
+              ...pagination,
+              current: 1,
+              total: tradesData.pagination.total || 0
+            });
+          }
+        }
+      }
     } catch (error) {
       message.error('搜索交易失败');
       console.error('搜索交易失败:', error);
@@ -124,8 +176,13 @@ const TradeManagement: React.FC = () => {
     },
     {
       title: '交易品种',
-      dataIndex: 'symbol',
-      key: 'symbol'
+      dataIndex: 'asset',
+      key: 'asset'
+    },
+    {
+      title: '类型',
+      dataIndex: 'type',
+      key: 'type'
     },
     {
       title: '数量',
@@ -137,18 +194,6 @@ const TradeManagement: React.FC = () => {
       dataIndex: 'price',
       key: 'price',
       render: (price: number) => `$${price.toFixed(2)}`
-    },
-    {
-      title: '金额',
-      dataIndex: 'amount',
-      key: 'amount',
-      render: (amount: number) => `$${amount.toFixed(2)}`
-    },
-    {
-      title: '手续费',
-      dataIndex: 'fee',
-      key: 'fee',
-      render: (fee: number) => `$${fee.toFixed(2)}`
     },
     {
       title: '状态',
@@ -165,7 +210,7 @@ const TradeManagement: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (_: any, record: TradeData) => (
         <div>
           {record.status === 'pending' && (
             <>
@@ -199,7 +244,7 @@ const TradeManagement: React.FC = () => {
             <Input placeholder="请输入用户ID" />
           </Form.Item>
           
-          <Form.Item name="symbol" label="交易品种">
+          <Form.Item name="asset" label="交易品种">
             <Input placeholder="请输入交易品种" />
           </Form.Item>
           

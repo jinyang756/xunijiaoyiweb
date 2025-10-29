@@ -19,13 +19,41 @@ import { adminApi } from '../../services/adminApi';
 const { Title } = Typography;
 const { Option } = Select;
 
+// 定义用户数据接口
+interface UserData {
+  id: string;
+  username: string;
+  role: string;
+  email: string;
+  createdAt: string;
+  balance: number;
+  totalAssets: number;
+}
+
+// 定义分页数据接口
+interface PaginationData {
+  current: number;
+  pageSize: number;
+  total: number;
+}
+
+// 定义API返回数据接口
+interface UsersResponse {
+  users: UserData[];
+  pagination?: {
+    total: number;
+    page: number;
+    limit: number;
+  };
+}
+
 const UserManagement: React.FC = () => {
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<UserData[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [editingUser, setEditingUser] = useState<any>(null);
+  const [editingUser, setEditingUser] = useState<UserData | null>(null);
   const [form] = Form.useForm();
-  const [pagination, setPagination] = useState({
+  const [pagination, setPagination] = useState<PaginationData>({
     current: 1,
     pageSize: 10,
     total: 0
@@ -43,11 +71,23 @@ const UserManagement: React.FC = () => {
         limit: pagination.pageSize
       });
       
-      setUsers(res.data.users || []);
-      setPagination({
-        ...pagination,
-        total: res.data.pagination?.total || 0
-      });
+      // 处理返回的数据
+      if (Array.isArray(res.data)) {
+        setUsers(res.data);
+      } else {
+        // 假设返回的是包含 users 和 pagination 的对象
+        const usersData = res.data as UsersResponse;
+        if (usersData.users) {
+          setUsers(usersData.users);
+          // 更新分页信息
+          if (usersData.pagination) {
+            setPagination({
+              ...pagination,
+              total: usersData.pagination.total || 0
+            });
+          }
+        }
+      }
     } catch (error) {
       message.error('获取用户列表失败');
       console.error('获取用户列表失败:', error);
@@ -62,7 +102,7 @@ const UserManagement: React.FC = () => {
     setModalVisible(true);
   };
 
-  const handleEditUser = (user: any) => {
+  const handleEditUser = (user: UserData) => {
     setEditingUser(user);
     form.setFieldsValue(user);
     setModalVisible(true);
@@ -162,7 +202,7 @@ const UserManagement: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (_: any, record: UserData) => (
         <div>
           <Button 
             type="link" 

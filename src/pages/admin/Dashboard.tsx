@@ -1,14 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Row, Col, Statistic, Spin, Typography, Table, Tag } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
+import { ArrowUpOutlined } from '@ant-design/icons';
 import { adminApi } from '../../services/adminApi';
 
 const { Title } = Typography;
 
+// 定义交易数据接口
+interface TradeData {
+  id: string;
+  userId: string;
+  asset: string;
+  type: string;
+  quantity: number;
+  price: number;
+  status: string;
+  timestamp: string;
+}
+
+// 定义统计数据接口
+interface StatsData {
+  totalUsers: number;
+  activeUsers: number;
+  totalTrades: number;
+  totalVolume: number;
+}
+
 const Dashboard: React.FC = () => {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<StatsData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [recentTrades, setRecentTrades] = useState<any[]>([]);
+  const [recentTrades, setRecentTrades] = useState<TradeData[]>([]);
 
   useEffect(() => {
     fetchDashboardData();
@@ -25,7 +45,8 @@ const Dashboard: React.FC = () => {
       ]);
       
       setStats(statsRes.data);
-      setRecentTrades(tradesRes.data.trades || []);
+      // 修复属性访问错误
+      setRecentTrades(Array.isArray(tradesRes.data) ? tradesRes.data : []);
     } catch (error) {
       console.error('获取仪表盘数据失败:', error);
     } finally {
@@ -57,8 +78,8 @@ const Dashboard: React.FC = () => {
     },
     { 
       title: '交易品种', 
-      dataIndex: 'symbol', 
-      key: 'symbol' 
+      dataIndex: 'asset', 
+      key: 'asset' 
     },
     { 
       title: '数量', 
@@ -66,10 +87,10 @@ const Dashboard: React.FC = () => {
       key: 'quantity' 
     },
     { 
-      title: '金额', 
-      dataIndex: 'amount', 
-      key: 'amount', 
-      render: (amount: number) => `$${amount.toFixed(2)}` 
+      title: '价格', 
+      dataIndex: 'price', 
+      key: 'price',
+      render: (price: number) => `¥${price.toFixed(2)}` 
     },
     { 
       title: '状态', 
@@ -97,7 +118,7 @@ const Dashboard: React.FC = () => {
           <Card>
             <Statistic
               title="总用户数"
-              value={stats?.users || 0}
+              value={stats?.totalUsers || 0}
               precision={0}
               valueStyle={{ color: '#3f8600' }}
               prefix={<ArrowUpOutlined />}

@@ -12,7 +12,7 @@ import {
   Tag, 
   Select 
 } from 'antd';
-
+import { EditOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
 
 interface ContractData {
   id: string;
@@ -251,10 +251,11 @@ export const ContractManagement: React.FC = (): JSX.Element => {
               min={0}
               max={1}
               step={0.01}
-              formatter={(value): string => (Number(value) * 100).toFixed(2) + '%'}
+              formatter={(value): string => `${(Number(value) * 100).toFixed(2)}%`}
               parser={(value): 0 | 1 => {
-                const num = value ? Number(value.replace('%', '')) / 100 : 0;
-                return num > 0.5 ? 1 : 0;
+                if (!value) return 0;
+                const num = Number(value.replace('%', '')) / 100;
+                return num >= 1 ? 1 : 0;
               }}
             />
           </Form.Item>

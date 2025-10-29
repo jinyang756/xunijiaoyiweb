@@ -11,7 +11,6 @@ export class RequestQueue {
   private failedQueue: QueueItem[] = [];
   private api: (config: AxiosRequestConfig) => Promise<any>;
   private onRefreshToken: () => Promise<string>;
-  private refreshToken: string | null = null;
 
   constructor(
     api: (config: AxiosRequestConfig) => Promise<any>,
@@ -44,7 +43,6 @@ export class RequestQueue {
     try {
       // 尝试刷新 token
       const newToken = await this.onRefreshToken();
-      this.refreshToken = newToken;
 
       // 处理队列中的请求
       this.processQueue(null, newToken);

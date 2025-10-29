@@ -10,22 +10,47 @@ import {
   Card,
   Row,
   Col,
-  Typography,
-  Tag
+  Typography
 } from 'antd';
 import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
 import { adminApi } from '../../services/adminApi';
 
 const { Title } = Typography;
 
+// 定义资金数据接口
+interface FundData {
+  id: string;
+  userId: string;
+  balance: number;
+  frozen: number;
+  totalAssets: number;
+}
+
+// 定义分页数据接口
+interface PaginationData {
+  current: number;
+  pageSize: number;
+  total: number;
+}
+
+// 定义API返回数据接口
+interface FundsResponse {
+  funds: FundData[];
+  pagination?: {
+    total: number;
+    page: number;
+    limit: number;
+  };
+}
+
 const FundManagement: React.FC = () => {
-  const [funds, setFunds] = useState<any[]>([]);
+  const [funds, setFunds] = useState<FundData[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [searchForm] = Form.useForm();
   const [adjustForm] = Form.useForm();
-  const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [pagination, setPagination] = useState({
+  const [selectedUser, setSelectedUser] = useState<FundData | null>(null);
+  const [pagination, setPagination] = useState<PaginationData>({
     current: 1,
     pageSize: 10,
     total: 0
@@ -43,11 +68,23 @@ const FundManagement: React.FC = () => {
         limit: pagination.pageSize
       });
       
-      setFunds(res.data.funds || []);
-      setPagination({
-        ...pagination,
-        total: res.data.pagination?.total || 0
-      });
+      // 处理返回的数据
+      if (Array.isArray(res.data)) {
+        setFunds(res.data);
+      } else {
+        // 假设返回的是包含 funds 和 pagination 的对象
+        const fundsData = res.data as FundsResponse;
+        if (fundsData.funds) {
+          setFunds(fundsData.funds);
+          // 更新分页信息
+          if (fundsData.pagination) {
+            setPagination({
+              ...pagination,
+              total: fundsData.pagination.total || 0
+            });
+          }
+        }
+      }
     } catch (error) {
       message.error('获取资金列表失败');
       console.error('获取资金列表失败:', error);
@@ -66,12 +103,24 @@ const FundManagement: React.FC = () => {
         ...values
       });
       
-      setFunds(res.data.funds || []);
-      setPagination({
-        ...pagination,
-        current: 1,
-        total: res.data.pagination?.total || 0
-      });
+      // 处理返回的数据
+      if (Array.isArray(res.data)) {
+        setFunds(res.data);
+      } else {
+        // 假设返回的是包含 funds 和 pagination 的对象
+        const fundsData = res.data as FundsResponse;
+        if (fundsData.funds) {
+          setFunds(fundsData.funds);
+          // 更新分页信息
+          if (fundsData.pagination) {
+            setPagination({
+              ...pagination,
+              current: 1,
+              total: fundsData.pagination.total || 0
+            });
+          }
+        }
+      }
     } catch (error) {
       message.error('搜索资金失败');
       console.error('搜索资金失败:', error);
@@ -80,11 +129,10 @@ const FundManagement: React.FC = () => {
     }
   };
 
-  const handleAdjustFunds = (user: any) => {
+  const handleAdjustFunds = (user: FundData) => {
     setSelectedUser(user);
     adjustForm.setFieldsValue({
-      userId: user.userId,
-      username: user.username
+      userId: user.userId
     });
     setModalVisible(true);
   };
@@ -129,11 +177,6 @@ const FundManagement: React.FC = () => {
       key: 'userId'
     },
     {
-      title: '用户名',
-      dataIndex: 'username',
-      key: 'username'
-    },
-    {
       title: '账户余额',
       dataIndex: 'balance',
       key: 'balance',
@@ -148,7 +191,7 @@ const FundManagement: React.FC = () => {
     {
       title: '可用余额',
       key: 'available',
-      render: (_: any, record: any) => {
+      render: (_: any, record: FundData) => {
         const available = record.balance - record.frozen;
         return `$${available.toFixed(2)}`;
       }
@@ -156,7 +199,7 @@ const FundManagement: React.FC = () => {
     {
       title: '操作',
       key: 'action',
-      render: (_: any, record: any) => (
+      render: (_: any, record: FundData) => (
         <Button 
           type="primary" 
           onClick={() => handleAdjustFunds(record)}
@@ -177,10 +220,6 @@ const FundManagement: React.FC = () => {
             <Input placeholder="请输入用户ID" />
           </Form.Item>
           
-          <Form.Item name="username" label="用户名">
-            <Input placeholder="请输入用户名" />
-          </Form.Item>
-          
           <Form.Item>
             <Button type="primary" icon={<SearchOutlined />} htmlType="submit">
               搜索
@@ -194,7 +233,7 @@ const FundManagement: React.FC = () => {
           columns={columns}
           dataSource={funds}
           loading={loading}
-          rowKey="userId"
+          rowKey="id"
           pagination={{
             current: pagination.current,
             pageSize: pagination.pageSize,
@@ -216,13 +255,6 @@ const FundManagement: React.FC = () => {
           <Form.Item
             name="userId"
             label="用户ID"
-          >
-            <Input disabled />
-          </Form.Item>
-          
-          <Form.Item
-            name="username"
-            label="用户名"
           >
             <Input disabled />
           </Form.Item>

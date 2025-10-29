@@ -1,7 +1,6 @@
-import React from 'react';
-import { useEffect } from 'react';
 // 导入性能监控
 import { performanceMonitor } from './utils/performance';
+import { useEffect } from 'react';
 
 function App() {
   // 标记应用加载完成

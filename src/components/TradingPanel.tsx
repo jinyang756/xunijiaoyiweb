@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Input, InputNumber, Select, Button, message, Table, Tag, Spin } from 'antd';
+import { Card, Form, InputNumber, Select, Button, message, Table, Tag, Spin } from 'antd';
 import { tradingService } from '../services/tradingService';
 // 导入性能监控
 import { performanceMonitor } from '../utils/performance';
@@ -27,6 +27,17 @@ interface Position {
   cost: number;
   price: number;
   pnl: number;
+}
+
+// 定义交易数据接口
+interface TradeResponse {
+  id: string;
+  userId: string;
+  asset: string;
+  quantity: number;
+  averagePrice: number;
+  currentPrice: number;
+  profit: number;
 }
 
 const TradingPanel: React.FC = () => {
@@ -65,7 +76,7 @@ const TradingPanel: React.FC = () => {
     });
 
     // 订阅交易更新
-    const unsubscribeTrade = tradingService.subscribeToTradeUpdates((data) => {
+    const unsubscribeTrade = tradingService.subscribeToTradeUpdates(() => {
       // 标记交易更新
       performanceMonitor.mark('trade-update');
       
@@ -115,7 +126,16 @@ const TradingPanel: React.FC = () => {
       
       // 调用实际的API获取持仓数据
       const response = await tradingService.getPositions();
-      setPositions(response.data || []);
+      // 转换数据格式以匹配 Position 接口
+      const convertedPositions: Position[] = response.data.map((item: TradeResponse) => ({
+        id: item.id,
+        name: item.asset,
+        amount: item.quantity,
+        cost: item.averagePrice,
+        price: item.currentPrice,
+        pnl: item.profit
+      }));
+      setPositions(convertedPositions);
       
       // 标记持仓数据获取完成
       performanceMonitor.mark('fetch-positions-end');

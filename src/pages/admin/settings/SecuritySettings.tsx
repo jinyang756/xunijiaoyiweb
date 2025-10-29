@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Select, InputNumber, message, Switch } from 'antd';
+import { Form, Button, Select, InputNumber, message, Switch } from 'antd';
 
 interface SecuritySettingsData {
   passwordPolicy: {
