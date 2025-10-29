@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Typography, Statistic, Table, Tag, Spin } from 'antd';
-import { ArrowUpOutlined, ArrowDownOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import { ArrowUpOutlined, CheckCircleOutlined } from '@ant-design/icons';
 import { realtimeService } from '../../services/realtimeService';
 
 const { Title } = Typography;

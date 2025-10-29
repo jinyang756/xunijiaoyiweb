@@ -25,7 +25,7 @@ const PerformanceReport: React.FC = () => {
   const [reportData, setReportData] = useState<PerformanceReport | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [dateRange, setDateRange] = useState<[string, string] | null>(null);
+  // 移除未使用的变量 dateRange
 
   useEffect(() => {
     fetchPerformanceReport();
@@ -173,11 +173,7 @@ const PerformanceReport: React.FC = () => {
           <RangePicker 
             style={{ marginRight: 16 }} 
             onChange={(dates, dateStrings) => {
-              if (dates && dates.length === 2) {
-                setDateRange([dateStrings[0], dateStrings[1]]);
-              } else {
-                setDateRange(null);
-              }
+              // 处理日期范围变化
             }}
           />
           <Button 

@@ -8,11 +8,9 @@ import {
   InputNumber, 
   message, 
   Card,
-  Row,
-  Col,
   Typography
 } from 'antd';
-import { PlusOutlined, SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import { adminApi } from '../../services/adminApi';
 
 const { Title } = Typography;
@@ -49,7 +47,7 @@ const FundManagement: React.FC = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [searchForm] = Form.useForm();
   const [adjustForm] = Form.useForm();
-  const [selectedUser, setSelectedUser] = useState<FundData | null>(null);
+  // 移除未使用的变量 selectedUser
   const [pagination, setPagination] = useState<PaginationData>({
     current: 1,
     pageSize: 10,
@@ -130,7 +128,6 @@ const FundManagement: React.FC = () => {
   };
 
   const handleAdjustFunds = (user: FundData) => {
-    setSelectedUser(user);
     adjustForm.setFieldsValue({
       userId: user.userId
     });
