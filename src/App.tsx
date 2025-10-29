@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect } from 'react';
 import { performanceMonitor } from './utils/performance';
 import AppRouter from './router';
