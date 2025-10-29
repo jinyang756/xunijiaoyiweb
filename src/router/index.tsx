@@ -46,12 +46,12 @@ const GuestRoute = ({ children, adminOnly = false }: { children: React.ReactNode
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
+    element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
       { path: 'market', element: <MarketView /> },
-      { path: 'trading', element: <Trading /> },
-      { path: 'profile', element: <UserProfile /> },
+      { path: 'trading', element: <ProtectedRoute><Trading /></ProtectedRoute> },
+      { path: 'profile', element: <ProtectedRoute><UserProfile /></ProtectedRoute> },
     ]
   },
   {
