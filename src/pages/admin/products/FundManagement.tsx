@@ -14,7 +14,9 @@ import {
   Select
 } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import moment from 'moment';interface FundData {
+import moment from 'moment';
+
+interface FundData {
   id: string;
   name: string;
   code: string;
@@ -24,16 +26,6 @@ import moment from 'moment';interface FundData {
   status: 'active' | 'inactive';
   startDate: string;
   manager: string;
-}
-
-interface FundData {
-  id: string;
-  name: string;
-  type: string;
-  nav: number;
-  description: string;
-  status: 'active' | 'inactive';
-  createdAt: string;
 }
 
 export const FundManagement: React.FC = () => {
