@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import { useAuthStore } from '../store/authStore';
+import { ProtectedRouteProps, GuestRouteProps } from '../types/router';
 // 布局组件
 import MainLayout from '../layouts/MainLayout';
 import AdminLayout from '../layouts/AdminLayout';
@@ -19,7 +20,7 @@ import MarketView from '../pages/MarketView';
 import UserProfile from '../pages/UserProfile';
 
 // 权限控制组件
-const ProtectedRoute = ({ children, requiredRole = 'user' }: { children: React.ReactNode; requiredRole?: string }) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, requiredRole = 'user' }) => {
   const { isAuthenticated, user } = useAuthStore();
   
   if (!isAuthenticated) {
@@ -34,7 +35,7 @@ const ProtectedRoute = ({ children, requiredRole = 'user' }: { children: React.R
 };
 
 // 未认证用户路由（登录页用）：已登录则重定向
-const GuestRoute = ({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) => {
+const GuestRoute: React.FC<GuestRouteProps> = ({ children, adminOnly = false }) => {
   const { isAuthenticated, user } = useAuthStore();
   if (!isAuthenticated) return <>{children}</>;
   // 已登录且为管理员，访问 admin login 时跳转到 /admin
